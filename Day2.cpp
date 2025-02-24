@@ -51,3 +51,16 @@ public:
         return haiKiNahi;
     }
 };
+
+//Problem 3 : Maximum Depth of Binary Tree
+class Solution {
+private: 
+    int hiAyu(TreeNode* root){
+        if(!root) return 0;
+        else return 1+max(hiAyu(root->left),hiAyu(root->right));
+    }
+public:
+    int maxDepth(TreeNode* root) {
+        return hiAyu(root);
+    }
+};
