@@ -1,7 +1,7 @@
 // Day 1 23/02/2025 -> Binary_Tree
 
 // Preorder Traversal
-//Problem 1
+//Problem 1 Prorderd
 
 class Solution {
 private:
@@ -45,7 +45,7 @@ public:
     }
 };
 
-// Problem 2
+// Problem 2 Inorder
 class Solution {
 private:
     void hiAyu(TreeNode* root,vector<int>&inOrder){
@@ -64,16 +64,32 @@ private:
         inOrder.insert(inOrder.end(),right.begin(),right.end());
         return inOrder;
     }
+    vector<int> hiAyu2(TreeNode* root){
+        vector<int> inOrder;
+        stack<TreeNode*> st;
+        TreeNode* f = root;
+        while(f or !st.empty()){
+            while(f){
+                st.push(f);
+                f = f->left;
+            }
+            inOrder.push_back(st.top()->val);
+            f = st.top()->right;
+            st.pop();
+        }
+        return inOrder;
+    }
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         // vector<int>inOrder;
         // hiAyu(root,inOrder);
         // return inOrder;
-        return hiAyu(root);
+        // return hiAyu(root);
+        return hiAyu2(root);
     }
 };
 
-//Problem 3
+//Problem 3 PostOrder
 class Solution {
 private:
     void hiAyu(TreeNode* root,vector<int>&postOrder){
@@ -92,12 +108,27 @@ private:
         postOrder.push_back(root->val);
         return postOrder;
     }
+    vector<int> hiAyu2(TreeNode* root){
+        if(root==nullptr) return {};
+        vector<int> postOrder;
+        stack<TreeNode*> st;
+        st.push(root);
+        while (!st.empty()) {
+            TreeNode* f = st.top();
+            st.pop();
+            postOrder.push_back(f->val);
+            if (f->left) st.push(f->left);
+            if (f->right) st.push(f->right);
+        }
+        reverse(postOrder.begin(), postOrder.end());
+        return postOrder;
+    }
 public:
     vector<int> postorderTraversal(TreeNode* root) {
         // vector<int>postOrder;
         // hiAyu(root,postOrder);
         // return postOrder;
-        return hiAyu(root);
+        // return hiAyu(root);
+        return hiAyu2(root);
     }
 };
-
