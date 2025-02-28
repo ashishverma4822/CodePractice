@@ -20,7 +20,30 @@ public:
 };
 
 // Problem 2 : Count Complete Tree Node
-
+class Solution {
+private:
+    int heightl(TreeNode* root){
+        if(!root) return 0;
+        return 1+heightl(root->left);
+    }
+    int heightr(TreeNode* root){
+        if(!root) return 0;
+        return 1+heightr(root->right);
+    }
+    int hiAyu(TreeNode* root){
+        if(!root) return 0;
+        int lh = heightl(root->left);
+        int rh = heightr(root->right);
+        if(lh == rh){
+            return pow(2,lh+1)-1;
+        }
+        return hiAyu(root->left) + hiAyu(root->right) + 1;
+    }
+public:
+    int countNodes(TreeNode* root) {
+        return hiAyu(root);
+    }
+};
 
 //Problem 3 : Minimum Depth of Bnary Tree
 class Solution {
