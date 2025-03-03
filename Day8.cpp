@@ -63,3 +63,29 @@ public:
         return r1==r2;
     }
 };
+
+// Problem 4 : Check if subtree
+
+class Solution
+{
+  private:
+    bool helpme(Node* root1, Node* root2){
+        if(!root1 and !root2) return true;
+        if(!root1 and root2) return false;
+        if(root1 and !root2) return false;
+        if(root1->data!=root2->data) return false;
+        return helpme(root1->left,root2->left) and helpme(root1->right,root2->right);
+    }
+    bool hiAyu(Node* root, Node* subRoot){
+        if(!root) return false;
+        bool ans = helpme(root,subRoot);
+        return ans or hiAyu(root->left,subRoot) or hiAyu(root->right,subRoot);
+    }
+  public:
+    //Function to check if S is a subtree of tree T.
+    bool isSubTree(Node* T, Node* S) 
+    {
+        // Your code here
+        return hiAyu(T,S);
+    }
+};
