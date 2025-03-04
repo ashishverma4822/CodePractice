@@ -60,3 +60,28 @@ public:
         return hiAyu(root);
     }
 };
+
+// Problem 3 : 993. Cousins in Binary Tree
+
+class Solution {
+private: 
+    void hiAyu(TreeNode* root,TreeNode* par,int x, int y, int level){
+        if(!root) return;
+        if(root->val == x){
+            mp[root->val] = {par,level};
+        }
+        if(root->val == y){
+            mp[root->val] = {par,level};
+        }
+        hiAyu(root->left,root,x,y,level+1);
+        hiAyu(root->right,root,x,y,level+1);
+    }
+public:
+    unordered_map<int,pair<TreeNode*,int>>mp;
+    bool isCousins(TreeNode* root, int x, int y) {
+        hiAyu(root,nullptr,x,y,0);
+        if(mp[x].first==mp[y].first) return false;
+        if(mp[x].second!=mp[y].second) return false;
+        else return true;
+    }
+};
